@@ -16,7 +16,7 @@
 
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Light">
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="textAppearanceFinish">@style/TextAppearanceFinish</item>
     </style>
 
@@ -37,7 +37,7 @@
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
-        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
         <item name="android:textSize">36sp</item>
         <item name="android:textColor">#ff0099cc</item>
     </style>

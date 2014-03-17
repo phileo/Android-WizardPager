@@ -3,7 +3,7 @@ package com.example.wizardexample;
 import com.example.android.wizardpager.wizard.WizardActivity;
 import com.example.android.wizardpager.wizard.model.AbstractWizardModel;
 import com.example.android.wizardpager.wizard.ui.StepPagerStrip;
-
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ public class MainActivity extends WizardActivity {
 	private Button mNextButton;
 	private Button mPrevButton;
 
+	//Set layout of Pager
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,11 +33,14 @@ public class MainActivity extends WizardActivity {
 		setControls(mPager, mStepPagerStrip, mNextButton, mPrevButton);
 	}
 
+	//Create Wizard
 	@Override
 	public AbstractWizardModel onCreateModel() {
 		return new SandwichWizardModel(this);
 	}
 
+	//Method that runs after wizard is finished
+	@SuppressLint("ValidFragment")
 	@Override
 	public void onSubmit() {
 		DialogFragment dialog = new DialogFragment() {
@@ -54,6 +58,7 @@ public class MainActivity extends WizardActivity {
 		dialog.show(getSupportFragmentManager(), "place_order_dialog");
 	}
 
+	//Allow back button to be used to go back a step in the wizard
     @Override
     public boolean useBackForPrevious() {
         return true;
