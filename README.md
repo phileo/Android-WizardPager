@@ -3,6 +3,12 @@ Android WizardPager
 
 This repo is a fork of Roman Nurik's [Android-WizardPager](https://github.com/romannurik/Android-WizardPager). I plan on blending parts of pflammertsma's [repo](https://github.com/pflammertsma/Android-WizardPager) into my work, hoping to make it easier to incorporate as a library.
 
+Changes
+-------
+* Made it easier to use in other projects by moving methods into the library from the example (inspired by pflammertsma's work)
+* Moved the example into its own project
+* Lowered the minimum API to 8 (Android Froyo) by rearranging some themes. Could possibly go even lower.
+
 
 Original ReadMe
 ---------------
