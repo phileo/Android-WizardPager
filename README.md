@@ -1,5 +1,11 @@
-Android WizardPager Sample Code
-===============================
+Android WizardPager
+===================
+
+This repo is a fork of Roman Nurik's [Android-WizardPager](https://github.com/romannurik/Android-WizardPager). I plan on blending parts of pflammertsma's [repo](https://github.com/pflammertsma/Android-WizardPager) into my work, hoping to make it easier to incorporate as a library.
+
+
+Original ReadMe
+---------------
 
 Example `ViewPager`-based wizard UI sample code. See [my Google+ post](https://plus.google.com/+RomanNurik/posts/6cVymZvn3f4) for more details.
 
