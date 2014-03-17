@@ -39,142 +39,144 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ReviewFragment extends ListFragment implements ModelCallbacks {
-    private Callbacks mCallbacks;
-    private AbstractWizardModel mWizardModel;
-    private List<ReviewItem> mCurrentReviewItems;
+	private Callbacks mCallbacks;
+	private AbstractWizardModel mWizardModel;
+	private List<ReviewItem> mCurrentReviewItems;
 
-    private ReviewAdapter mReviewAdapter;
+	private ReviewAdapter mReviewAdapter;
 
-    public ReviewFragment() {
-    }
+	public ReviewFragment() {
+	}
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mReviewAdapter = new ReviewAdapter();
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		mReviewAdapter = new ReviewAdapter();
+	}
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_page, container, false);
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_page, container, false);
 
-        TextView titleView = (TextView) rootView.findViewById(android.R.id.title);
-        titleView.setText(R.string.review);
-        titleView.setTextColor(getResources().getColor(R.color.review_green));
+		TextView titleView = (TextView) rootView.findViewById(android.R.id.title);
+		titleView.setText(R.string.review);
+		titleView.setTextColor(getResources().getColor(R.color.review_green));
 
-        ListView listView = (ListView) rootView.findViewById(android.R.id.list);
-        setListAdapter(mReviewAdapter);
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        return rootView;
-    }
+		ListView listView = (ListView) rootView.findViewById(android.R.id.list);
+		setListAdapter(mReviewAdapter);
+		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		return rootView;
+	}
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
 
-        if (!(activity instanceof Callbacks)) {
-            throw new ClassCastException("Activity must implement fragment's callbacks");
-        }
+		if (!(activity instanceof Callbacks)) {
+			//throw new ClassCastException("Activity must implement fragment's callbacks");
+			mCallbacks = (Callbacks) getParentFragment();
+		}
+		else{
+			mCallbacks = (Callbacks) activity;
+		}
+		
+		mWizardModel = mCallbacks.onGetModel();
+		mWizardModel.registerListener(this);
+		onPageTreeChanged();
+	}
 
-        mCallbacks = (Callbacks) activity;
+	@Override
+	public void onPageTreeChanged() {
+		onPageDataChanged(null);
+	}
 
-        mWizardModel = mCallbacks.onGetModel();
-        mWizardModel.registerListener(this);
-        onPageTreeChanged();
-    }
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		mCallbacks = null;
 
-    @Override
-    public void onPageTreeChanged() {
-        onPageDataChanged(null);
-    }
+		mWizardModel.unregisterListener(this);
+	}
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mCallbacks = null;
+	@Override
+	public void onPageDataChanged(Page changedPage) {
+		ArrayList<ReviewItem> reviewItems = new ArrayList<ReviewItem>();
+		for (Page page : mWizardModel.getCurrentPageSequence()) {
+			page.getReviewItems(reviewItems);
+		}
+		Collections.sort(reviewItems, new Comparator<ReviewItem>() {
+			@Override
+			public int compare(ReviewItem a, ReviewItem b) {
+				return a.getWeight() > b.getWeight() ? +1 : a.getWeight() < b.getWeight() ? -1 : 0;
+			}
+		});
+		mCurrentReviewItems = reviewItems;
 
-        mWizardModel.unregisterListener(this);
-    }
+		if (mReviewAdapter != null) {
+			mReviewAdapter.notifyDataSetInvalidated();
+		}
+	}
 
-    @Override
-    public void onPageDataChanged(Page changedPage) {
-        ArrayList<ReviewItem> reviewItems = new ArrayList<ReviewItem>();
-        for (Page page : mWizardModel.getCurrentPageSequence()) {
-            page.getReviewItems(reviewItems);
-        }
-        Collections.sort(reviewItems, new Comparator<ReviewItem>() {
-            @Override
-            public int compare(ReviewItem a, ReviewItem b) {
-                return a.getWeight() > b.getWeight() ? +1 : a.getWeight() < b.getWeight() ? -1 : 0;
-            }
-        });
-        mCurrentReviewItems = reviewItems;
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		mCallbacks.onEditScreenAfterReview(mCurrentReviewItems.get(position).getPageKey());
+	}
 
-        if (mReviewAdapter != null) {
-            mReviewAdapter.notifyDataSetInvalidated();
-        }
-    }
+	public interface Callbacks {
+		AbstractWizardModel onGetModel();
+		void onEditScreenAfterReview(String pageKey);
+	}
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        mCallbacks.onEditScreenAfterReview(mCurrentReviewItems.get(position).getPageKey());
-    }
+	private class ReviewAdapter extends BaseAdapter {
+		@Override
+		public boolean hasStableIds() {
+			return true;
+		}
 
-    public interface Callbacks {
-        AbstractWizardModel onGetModel();
-        void onEditScreenAfterReview(String pageKey);
-    }
+		@Override
+		public int getItemViewType(int position) {
+			return 0;
+		}
 
-    private class ReviewAdapter extends BaseAdapter {
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
+		@Override
+		public int getViewTypeCount() {
+			return 1;
+		}
 
-        @Override
-        public int getItemViewType(int position) {
-            return 0;
-        }
+		@Override
+		public boolean areAllItemsEnabled() {
+			return true;
+		}
 
-        @Override
-        public int getViewTypeCount() {
-            return 1;
-        }
+		@Override
+		public Object getItem(int position) {
+			return mCurrentReviewItems.get(position);
+		}
 
-        @Override
-        public boolean areAllItemsEnabled() {
-            return true;
-        }
+		@Override
+		public long getItemId(int position) {
+			return mCurrentReviewItems.get(position).hashCode();
+		}
 
-        @Override
-        public Object getItem(int position) {
-            return mCurrentReviewItems.get(position);
-        }
+		@Override
+		public View getView(int position, View view, ViewGroup container) {
+			LayoutInflater inflater = LayoutInflater.from(getActivity());
+			View rootView = inflater.inflate(R.layout.list_item_review, container, false);
 
-        @Override
-        public long getItemId(int position) {
-            return mCurrentReviewItems.get(position).hashCode();
-        }
+			ReviewItem reviewItem = mCurrentReviewItems.get(position);
+			String value = reviewItem.getDisplayValue();
+			if (TextUtils.isEmpty(value)) {
+				value = "(None)";
+			}
+			((TextView) rootView.findViewById(android.R.id.text1)).setText(reviewItem.getTitle());
+			((TextView) rootView.findViewById(android.R.id.text2)).setText(value);
+			return rootView;
+		}
 
-        @Override
-        public View getView(int position, View view, ViewGroup container) {
-            LayoutInflater inflater = LayoutInflater.from(getActivity());
-            View rootView = inflater.inflate(R.layout.list_item_review, container, false);
-
-            ReviewItem reviewItem = mCurrentReviewItems.get(position);
-            String value = reviewItem.getDisplayValue();
-            if (TextUtils.isEmpty(value)) {
-                value = "(None)";
-            }
-            ((TextView) rootView.findViewById(android.R.id.text1)).setText(reviewItem.getTitle());
-            ((TextView) rootView.findViewById(android.R.id.text2)).setText(value);
-            return rootView;
-        }
-
-        @Override
-        public int getCount() {
-            return mCurrentReviewItems.size();
-        }
-    }
+		@Override
+		public int getCount() {
+			return mCurrentReviewItems.size();
+		}
+	}
 }

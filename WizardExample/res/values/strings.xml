@@ -2,5 +2,7 @@
 <resources>
 
     <string name="app_name">WizardExample</string>
+    <string name="activity">Activity Wizard</string>
+    <string name="fragment">Fragment Wizard</string>
 
 </resources>
