@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.example.android.wizardpager.wizard.model;
-
-import java.util.ArrayList;
+package com.wizardpager.wizard.model;
 
 /**
- * Represents a node in the page tree. Can either be a single page, or a page container.
+ * Callback interface connecting {@link Page}, {@link AbstractWizardModel}, and model container
+ * objects (e.g. {@link com.example.android.wizardpager.MainActivity}.
  */
-public interface PageTreeNode {
-    public Page findByKey(String key);
-    public void flattenCurrentPageSequence(ArrayList<Page> dest);
+public interface ModelCallbacks {
+    void onPageDataChanged(Page page);
+    void onPageTreeChanged();
 }

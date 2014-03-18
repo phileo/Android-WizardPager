@@ -16,12 +16,12 @@
 
 package com.example.wizardexample;
 
-import com.example.android.wizardpager.wizard.model.AbstractWizardModel;
-import com.example.android.wizardpager.wizard.model.BranchPage;
-import com.example.android.wizardpager.wizard.model.CustomerInfoPage;
-import com.example.android.wizardpager.wizard.model.MultipleFixedChoicePage;
-import com.example.android.wizardpager.wizard.model.PageList;
-import com.example.android.wizardpager.wizard.model.SingleFixedChoicePage;
+import com.wizardpager.wizard.model.AbstractWizardModel;
+import com.wizardpager.wizard.model.BranchPage;
+import com.wizardpager.wizard.model.CustomerInfoPage;
+import com.wizardpager.wizard.model.MultipleFixedChoicePage;
+import com.wizardpager.wizard.model.PageList;
+import com.wizardpager.wizard.model.SingleFixedChoicePage;
 
 import android.content.Context;
 

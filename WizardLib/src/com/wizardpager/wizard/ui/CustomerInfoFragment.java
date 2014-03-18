@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.android.wizardpager.wizard.ui;
+package com.wizardpager.wizard.ui;
 
 import com.example.android.wizardpager.R;
-import com.example.android.wizardpager.wizard.model.CustomerInfoPage;
+import com.wizardpager.wizard.model.CustomerInfoPage;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,10 +1,9 @@
 package com.example.wizardexample;
 
-import com.example.android.wizardpager.wizard.WizardFragment;
-import com.example.android.wizardpager.wizard.model.AbstractWizardModel;
-import com.example.android.wizardpager.wizard.ui.StepPagerStrip;
+import com.wizardpager.wizard.WizardFragment;
+import com.wizardpager.wizard.model.AbstractWizardModel;
+import com.wizardpager.wizard.ui.StepPagerStrip;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -50,7 +49,6 @@ public class FragmentExample extends WizardFragment {
 	}
 
 	//Method that runs after wizard is finished
-	@SuppressLint("ValidFragment")
 	@Override
 	public void onSubmit() {
 		DialogFragment dialog = new DialogFragment() {

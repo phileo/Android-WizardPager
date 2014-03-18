@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.android.wizardpager.wizard.model;
+package com.wizardpager.wizard.ui;
 
-/**
- * Callback interface connecting {@link Page}, {@link AbstractWizardModel}, and model container
- * objects (e.g. {@link com.example.android.wizardpager.MainActivity}.
- */
-public interface ModelCallbacks {
-    void onPageDataChanged(Page page);
-    void onPageTreeChanged();
+import com.wizardpager.wizard.model.Page;
+
+public interface PageFragmentCallbacks {
+    Page onGetPage(String key);
 }

@@ -19,7 +19,7 @@
  * All credit goes to him
  */
 
-package com.example.android.wizardpager.wizard.ui;
+package com.wizardpager.wizard.ui;
 
 import android.content.Context;
 import android.content.res.Resources;

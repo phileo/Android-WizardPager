@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.example.android.wizardpager.wizard.ui;
+package com.wizardpager.wizard.ui;
 
 import com.example.android.wizardpager.R;
-import com.example.android.wizardpager.wizard.model.AbstractWizardModel;
-import com.example.android.wizardpager.wizard.model.ModelCallbacks;
-import com.example.android.wizardpager.wizard.model.Page;
-import com.example.android.wizardpager.wizard.model.ReviewItem;
+import com.wizardpager.wizard.model.AbstractWizardModel;
+import com.wizardpager.wizard.model.ModelCallbacks;
+import com.wizardpager.wizard.model.Page;
+import com.wizardpager.wizard.model.ReviewItem;
 
 import android.app.Activity;
 import android.os.Bundle;

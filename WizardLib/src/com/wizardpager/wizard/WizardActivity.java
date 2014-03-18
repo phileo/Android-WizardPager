@@ -3,7 +3,7 @@
  * All credit should go to him
  */
 
-package com.example.android.wizardpager.wizard;
+package com.wizardpager.wizard;
 
 import java.util.List;
 
@@ -19,12 +19,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.android.wizardpager.R;
-import com.example.android.wizardpager.wizard.model.AbstractWizardModel;
-import com.example.android.wizardpager.wizard.model.ModelCallbacks;
-import com.example.android.wizardpager.wizard.model.Page;
-import com.example.android.wizardpager.wizard.ui.PageFragmentCallbacks;
-import com.example.android.wizardpager.wizard.ui.ReviewFragment;
-import com.example.android.wizardpager.wizard.ui.StepPagerStrip;
+import com.wizardpager.wizard.model.AbstractWizardModel;
+import com.wizardpager.wizard.model.ModelCallbacks;
+import com.wizardpager.wizard.model.Page;
+import com.wizardpager.wizard.ui.PageFragmentCallbacks;
+import com.wizardpager.wizard.ui.ReviewFragment;
+import com.wizardpager.wizard.ui.StepPagerStrip;
 
 public abstract class WizardActivity extends FragmentActivity implements
         PageFragmentCallbacks,

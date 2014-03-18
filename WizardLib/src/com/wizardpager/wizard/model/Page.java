@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.wizardpager.wizard.model;
+package com.wizardpager.wizard.model;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
