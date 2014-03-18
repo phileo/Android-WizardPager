@@ -8,7 +8,137 @@ Changes
 * Made it easier to use in other projects by moving methods into the library from the example (inspired by pflammertsma's work)
 * Moved the example into its own project
 * Lowered the minimum API to 8 (Android Froyo) by rearranging some themes. Could possibly go even lower.
+* Added a Fragment class (can't currently use Back to navigate wizard)
 
+
+Usage
+-----
+
+Start by making a class that extends WizardActivity or WizardFragment, depending on your needs.
+
+```java
+public class ActivityExample extends WizardActivity {
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+}
+    
+```
+
+In the onCreate (or onCreateView for WizardFragment), set the view to be R.layout.wizard (feel free to modify the appearance of this file from the library).
+
+```java
+	//Set layout of Pager
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.wizard);
+
+		ViewPager mPager = (ViewPager) findViewById(R.id.pager);
+		StepPagerStrip mStepPagerStrip = (StepPagerStrip) findViewById(R.id.strip);
+		Button mNextButton = (Button) findViewById(R.id.next_button);
+		Button mPrevButton = (Button) findViewById(R.id.prev_button);
+		setControls(mPager, mStepPagerStrip, mNextButton, mPrevButton);
+	}
+
+```
+
+Implement the necessary methods needed for WizardActivity or WizardFragment.
+
+```java
+	//Create Wizard
+	@Override
+	public AbstractWizardModel onCreateModel() {
+		return new SandwichWizardModel(this);
+	}
+```
+
+```java
+	//Method that runs after wizard is finished
+	@Override
+	public void onSubmit() {
+		DialogFragment dialog = new DialogFragment() {
+
+			@Override
+			public Dialog onCreateDialog(Bundle savedInstanceState) {
+				return new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.submit_confirm_title)
+						.setMessage(R.string.submit_confirm_message)
+						.setPositiveButton(R.string.submit_confirm_button, null)
+						.setNegativeButton(android.R.string.cancel, null)
+						.create();
+			}
+		};
+		dialog.show(getSupportFragmentManager(), "place_order_dialog");
+	}
+```
+
+```java	
+	//Allow back button to be used to go back a step in the wizard
+ 	@Override
+    	public boolean useBackForPrevious() {
+        	return true;
+    	}
+```
+
+The class SandwichWizardModel creates the wizard. This class is usually in a separate file, but you can incorporate it straight into the onCreateModel() method. We've chosen to make it in its own file.
+
+```java
+public class SandwichWizardModel extends AbstractWizardModel {
+    public SandwichWizardModel(Context context) {
+        super(context);
+    }
+
+    @Override
+    protected PageList onNewRootPageList() {
+        return new PageList(
+                new BranchPage(this, "Order type")
+                        .addBranch("Sandwich",
+                                new SingleFixedChoicePage(this, "Bread")
+                                        .setChoices("White", "Wheat", "Rye", "Pretzel", "Ciabatta")
+                                        .setRequired(true),
+
+                                new MultipleFixedChoicePage(this, "Meats")
+                                        .setChoices("Pepperoni", "Turkey", "Ham", "Pastrami",
+                                                "Roast Beef", "Bologna"),
+
+                                new MultipleFixedChoicePage(this, "Veggies")
+                                        .setChoices("Tomatoes", "Lettuce", "Onions", "Pickles",
+                                                "Cucumbers", "Peppers"),
+
+                                new MultipleFixedChoicePage(this, "Cheeses")
+                                        .setChoices("Swiss", "American", "Pepperjack", "Muenster",
+                                                "Provolone", "White American", "Cheddar", "Bleu"),
+
+                                new BranchPage(this, "Toasted?")
+                                        .addBranch("Yes",
+                                                new SingleFixedChoicePage(this, "Toast time")
+                                                        .setChoices("30 seconds", "1 minute",
+                                                                "2 minutes"))
+                                        .addBranch("No")
+                                        .setValue("No"))
+
+                        .addBranch("Salad",
+                                new SingleFixedChoicePage(this, "Salad type")
+                                        .setChoices("Greek", "Caesar")
+                                        .setRequired(true),
+
+                                new SingleFixedChoicePage(this, "Dressing")
+                                        .setChoices("No dressing", "Balsamic", "Oil & vinegar",
+                                                "Thousand Island", "Italian")
+                                        .setValue("No dressing")
+                        )
+
+                        .setRequired(true),
+
+                new CustomerInfoPage(this, "Your info")
+                        .setRequired(true)
+        );
+    }
+}
+```
 
 Original ReadMe
 ---------------

@@ -13,23 +13,16 @@ import android.widget.Button;
 
 public class ActivityExample extends WizardActivity {
 
-	private ViewPager mPager;
-
-	private StepPagerStrip mStepPagerStrip;
-
-	private Button mNextButton;
-	private Button mPrevButton;
-
 	//Set layout of Pager
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.wizard);
 
-		mPager = (ViewPager) findViewById(R.id.pager);
-		mStepPagerStrip = (StepPagerStrip) findViewById(R.id.strip);
-		mNextButton = (Button) findViewById(R.id.next_button);
-		mPrevButton = (Button) findViewById(R.id.prev_button);
+		ViewPager mPager = (ViewPager) findViewById(R.id.pager);
+		StepPagerStrip mStepPagerStrip = (StepPagerStrip) findViewById(R.id.strip);
+		Button mNextButton = (Button) findViewById(R.id.next_button);
+		Button mPrevButton = (Button) findViewById(R.id.prev_button);
 		setControls(mPager, mStepPagerStrip, mNextButton, mPrevButton);
 	}
 

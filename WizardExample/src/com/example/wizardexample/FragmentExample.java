@@ -16,13 +16,6 @@ import android.widget.Button;
 
 public class FragmentExample extends WizardFragment {
 
-	private ViewPager mPager;
-
-	private StepPagerStrip mStepPagerStrip;
-
-	private Button mNextButton;
-	private Button mPrevButton;
-
 	//Set layout of Pager
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,12 +24,12 @@ public class FragmentExample extends WizardFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-		View myFragmentView = inflater.inflate(R.layout.activity_main, null, false);
+		View myFragmentView = inflater.inflate(R.layout.wizard, null, false);
 		
-		mPager = (ViewPager) myFragmentView.findViewById(R.id.pager);
-		mStepPagerStrip = (StepPagerStrip) myFragmentView.findViewById(R.id.strip);
-		mNextButton = (Button) myFragmentView.findViewById(R.id.next_button);
-		mPrevButton = (Button) myFragmentView.findViewById(R.id.prev_button);
+		ViewPager mPager = (ViewPager) myFragmentView.findViewById(R.id.pager);
+		StepPagerStrip mStepPagerStrip = (StepPagerStrip) myFragmentView.findViewById(R.id.strip);
+		Button mNextButton = (Button) myFragmentView.findViewById(R.id.next_button);
+		Button mPrevButton = (Button) myFragmentView.findViewById(R.id.prev_button);
 		setControls(mPager, mStepPagerStrip, mNextButton, mPrevButton);
 		
 		return myFragmentView;
@@ -67,15 +60,10 @@ public class FragmentExample extends WizardFragment {
 	}
 
 	//Allow back button to be used to go back a step in the wizard
+	//Doesn't currently work with fragments
     @Override
     public boolean useBackForPrevious() {
         return true;
     }
-
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

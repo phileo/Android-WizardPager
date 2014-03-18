@@ -12,9 +12,10 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-  -->
+-->
 
 <resources>
+
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="textAppearanceFinish">@style/TextAppearanceFinish</item>
     </style>
@@ -51,4 +52,5 @@
         <item name="android:paddingLeft">12dp</item>
         <item name="android:paddingRight">12dp</item>
     </style>
+
 </resources>

@@ -205,12 +205,10 @@ public abstract class WizardFragment extends Fragment implements
 //    @Override
 //    public void onBackPressed() {
 //       if (!useBackForPrevious() || !onNavigatePrevious()) {
-//            super.onBackPressed();
+//    	   getSupportFragmentManager().popBackStack();
 //        }
 //    }
     
-    public abstract void onBackPressed();
-
     public abstract AbstractWizardModel onCreateModel();
 
     public abstract void onSubmit();
