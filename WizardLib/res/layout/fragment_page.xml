@@ -12,20 +12,15 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-  -->
+-->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/WizardPageContainer">
+    style="@style/WizardPageContainer" >
 
     <TextView style="@style/WizardPageTitle" />
 
-    <ListView android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:saveEnabled="false"
-        android:scrollbarStyle="outsideOverlay" />
+    <ListView
+        android:id="@android:id/list"
+        style="@style/FragmentListView" />
 
 </LinearLayout>
