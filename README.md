@@ -1,21 +1,29 @@
 Android WizardPager
 ===================
 
-This repo is a fork of Roman Nurik's [Android-WizardPager](https://github.com/romannurik/Android-WizardPager). I plan on blending parts of pflammertsma's [repo](https://github.com/pflammertsma/Android-WizardPager) into my work, hoping to make it easier to incorporate as a library.
+This repo is a fork of Roman Nurik's [Android-WizardPager](https://github.com/romannurik/Android-WizardPager), improving upon it in many ways.
+
+Screen Shots
+------------
+![Home](Screenshots/Main.png)
+![WizardActivity](Screenshots/WizardActivity.png)
+![WizardFragment](Screenshots/WizardFragment.png)
+![WizardDialogFragment](Screenshots/WizardDialogFragment.png)
+
 
 Changes
 -------
-* Made it easier to use in other projects by moving methods into the library from the example (inspired by pflammertsma's work)
-* Moved the example into its own project
+* Made it easier to use in other projects by moving methods into the library from the example (inspired by pflammertsma's [work](https://github.com/pflammertsma/Android-WizardPager))
+* Moved the example into its own project, improved upon it
 * Lowered the minimum API to 8 (Android Froyo) by rearranging some themes. Could possibly go even lower
-* Added a Fragment class (can't currently use Back to navigate wizard)
-* Added a DialogFragment class (can't currently use Back to navigate wizard)
+* Added a Fragment class
+* Added a DialogFragment class
 
 
 Usage
 -----
 
-Start by making a class that extends WizardActivity, WizardFragment or WizardDialogFragment depending on your needs.
+Start by making a class that extends WizardActivity, WizardFragment or WizardDialogFragment depending on your needs. We're going to make a WizardActivity.
 
 ```java
 public class ActivityExample extends WizardActivity {
@@ -46,7 +54,7 @@ In the onCreate (or onCreateView for WizardFragment), set the view to be R.layou
 
 ```
 
-Implement the necessary methods needed for WizardActivity, WizardFragment, or WizardDialogFragment.
+Implement the necessary methods needed for WizardActivity, WizardFragment, or WizardDialogFragment. We need onCreateModel, onSubmit, and useBackForPrevious.
 
 ```java
 	//Create Wizard
@@ -84,7 +92,7 @@ Implement the necessary methods needed for WizardActivity, WizardFragment, or Wi
     	}
 ```
 
-The class SandwichWizardModel creates the wizard. This class is usually in a separate file, but you can incorporate it straight into the onCreateModel() method. We've chosen to make it in its own file.
+In this example, the class SandwichWizardModel creates the wizard. This class just needs a contructor passing the context and onNewRootPageList creating the wizard.
 
 ```java
 public class SandwichWizardModel extends AbstractWizardModel {

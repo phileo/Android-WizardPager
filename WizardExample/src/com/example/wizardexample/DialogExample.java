@@ -3,6 +3,7 @@ package com.example.wizardexample;
 import com.wizardpager.wizard.WizardDialogFragment;
 import com.wizardpager.wizard.model.AbstractWizardModel;
 import com.wizardpager.wizard.ui.StepPagerStrip;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -78,7 +79,6 @@ public class DialogExample extends WizardDialogFragment{
 	}
 
 	//Allow back button to be used to go back a step in the wizard
-	//Doesn't currently work with fragments
 	@Override
 	public boolean useBackForPrevious() {
 		return true;

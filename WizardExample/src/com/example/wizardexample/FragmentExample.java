@@ -58,12 +58,4 @@ public class FragmentExample extends WizardFragment {
 		};
 		dialog.show(getChildFragmentManager(), "place_order_dialog");
 	}
-
-	//Allow back button to be used to go back a step in the wizard
-	//Doesn't currently work with fragments
-    @Override
-    public boolean useBackForPrevious() {
-        return true;
-    }
-
 }

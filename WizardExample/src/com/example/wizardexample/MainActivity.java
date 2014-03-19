@@ -2,7 +2,7 @@ package com.example.wizardexample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,19 +10,15 @@ import android.widget.Button;
 
 public class MainActivity extends FragmentActivity {
 
-	private Button buttonActivity;
-	private Button buttonFragment;
-	private Button buttonDialog;
-
 	//Set layout of Pager
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		buttonActivity = (Button) findViewById(R.id.activity_button);
-		buttonFragment = (Button) findViewById(R.id.fragment_button);
-		buttonDialog = (Button) findViewById(R.id.dialog_button);
+		Button buttonActivity = (Button) findViewById(R.id.activity_button);
+		Button buttonFragment = (Button) findViewById(R.id.fragment_button);
+		Button buttonDialog = (Button) findViewById(R.id.dialog_button);
 
 		buttonActivity.setOnClickListener(new OnClickListener() {
 			@Override
@@ -50,10 +46,23 @@ public class MainActivity extends FragmentActivity {
 			@Override
 			public void onClick(View arg0) {
 			    DialogExample frag = DialogExample.newInstance();
-			    frag.show(getSupportFragmentManager(), "dialog");
+			    frag.show(getSupportFragmentManager(), "dialog_tag");
 			}
 		});
 		
+	}
+	
+	//Override this method if you want fragments to navigate when back is pressed
+	@Override
+	public void onBackPressed(){
+		   Fragment fragment = getSupportFragmentManager().findFragmentByTag("frag_tag");
+		   
+		   if (fragment instanceof FragmentExample) {
+			   ((FragmentExample) fragment).onNavigatePrevious();
+		       return;
+		   }
+		   
+		   super.onBackPressed();
 	}
 
 }

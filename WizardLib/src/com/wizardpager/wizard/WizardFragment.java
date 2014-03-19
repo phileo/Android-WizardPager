@@ -7,7 +7,6 @@ package com.wizardpager.wizard;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -58,14 +57,14 @@ public abstract class WizardFragment extends Fragment implements
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        //if (mPager == null) {
-        //    throw new IllegalStateException(
-        //            "setControls() must be called before Activity resumes for the first time; did you forget to call it in onCreate()?");
-        //}
+    public void onActivityCreated(Bundle savedInstanceState){
+    	super.onActivityCreated(savedInstanceState);
+        if (mPager == null) {
+            throw new IllegalStateException(
+                    "setControls() must be called before Activity resumes for the first time; did you forget to call it in onCreate()?");
+        }    	
     }
-
+    
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -179,7 +178,7 @@ public abstract class WizardFragment extends Fragment implements
         }
     }
 
-    protected boolean onNavigatePrevious() {
+    public boolean onNavigatePrevious() {
         if (mPager.getCurrentItem() > 0) {
             mPager.setCurrentItem(mPager.getCurrentItem() - 1);
             return true;
@@ -202,19 +201,10 @@ public abstract class WizardFragment extends Fragment implements
         outState.putBundle("model", mWizardModel.save());
     }
 
-//    @Override
-//    public void onBackPressed() {
-//       if (!useBackForPrevious() || !onNavigatePrevious()) {
-//    	   getSupportFragmentManager().popBackStack();
-//        }
-//    }
-    
     public abstract AbstractWizardModel onCreateModel();
 
     public abstract void onSubmit();
-
-    public abstract boolean useBackForPrevious();
-
+    
     @Override
     public AbstractWizardModel onGetModel() {
         return mWizardModel;
