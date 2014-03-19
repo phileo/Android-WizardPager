@@ -53,4 +53,12 @@
         <item name="android:paddingRight">12dp</item>
     </style>
 
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <style name="dialog_light" parent="@android:style/Theme.Dialog">
+        <item name="@android:background">@color/white</item>
+        <item name="@android:textColor">@color/black</item>
+    </style>
+
 </resources>

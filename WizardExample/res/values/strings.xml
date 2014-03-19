@@ -4,5 +4,6 @@
     <string name="app_name">WizardExample</string>
     <string name="activity">Activity Wizard</string>
     <string name="fragment">Fragment Wizard</string>
-
+    <string name="dialog">Dialog Wizard</string>
+    
 </resources>

@@ -7,14 +7,15 @@ Changes
 -------
 * Made it easier to use in other projects by moving methods into the library from the example (inspired by pflammertsma's work)
 * Moved the example into its own project
-* Lowered the minimum API to 8 (Android Froyo) by rearranging some themes. Could possibly go even lower.
+* Lowered the minimum API to 8 (Android Froyo) by rearranging some themes. Could possibly go even lower
 * Added a Fragment class (can't currently use Back to navigate wizard)
+* Added a DialogFragment class (can't currently use Back to navigate wizard)
 
 
 Usage
 -----
 
-Start by making a class that extends WizardActivity or WizardFragment, depending on your needs.
+Start by making a class that extends WizardActivity, WizardFragment or WizardDialogFragment depending on your needs.
 
 ```java
 public class ActivityExample extends WizardActivity {
@@ -45,7 +46,7 @@ In the onCreate (or onCreateView for WizardFragment), set the view to be R.layou
 
 ```
 
-Implement the necessary methods needed for WizardActivity or WizardFragment.
+Implement the necessary methods needed for WizardActivity, WizardFragment, or WizardDialogFragment.
 
 ```java
 	//Create Wizard

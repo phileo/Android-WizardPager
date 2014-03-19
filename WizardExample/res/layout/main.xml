@@ -31,11 +31,18 @@
         android:layout_below="@+id/activity_button"
         android:text="@string/fragment" />
 
+    <Button
+        android:id="@+id/dialog_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_button"
+        android:text="@string/dialog" />
+
     <FrameLayout
         android:id="@+id/fragment_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/fragment_button"
+        android:layout_below="@+id/dialog_button"
         android:background="#EEEEEE" >
     </FrameLayout>
 
