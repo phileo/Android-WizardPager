@@ -2,20 +2,21 @@ package com.example.wizardexample;
 
 import com.wizardpager.wizard.WizardFragment;
 import com.wizardpager.wizard.model.AbstractWizardModel;
+import com.wizardpager.wizard.model.Page;
 import com.wizardpager.wizard.ui.StepPagerStrip;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class FragmentExample extends WizardFragment {
 
+	private AbstractWizardModel mWizardModel = new SandwichWizardModel(getActivity());
+	
 	//Set layout of Pager
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,24 +39,38 @@ public class FragmentExample extends WizardFragment {
 	//Create Wizard
 	@Override
 	public AbstractWizardModel onCreateModel() {
-		return new SandwichWizardModel(getActivity());
+		return mWizardModel;
 	}
 
 	//Method that runs after wizard is finished
 	@Override
 	public void onSubmit() {
-		DialogFragment dialog = new DialogFragment() {
+		String type = mWizardModel.findByKey("Order type").getData().getString(Page.SIMPLE_DATA_KEY);
+		
+		if(type.equals("Sandwich")){
+			String bread = mWizardModel.findByKey("Sandwich:Bread").getData().getString(Page.SIMPLE_DATA_KEY);
+			String meats = "None";
+			String veggies = "None";
+			String cheeses = "None";
+			String toasted = mWizardModel.findByKey("Sandwich:Toasted?").getData().getString(Page.SIMPLE_DATA_KEY);
 
-			@Override
-			public Dialog onCreateDialog(Bundle savedInstanceState) {
-				return new AlertDialog.Builder(getActivity())
-                        .setTitle(R.string.submit_confirm_title)
-						.setMessage(R.string.submit_confirm_message)
-						.setPositiveButton(R.string.submit_confirm_button, null)
-						.setNegativeButton(android.R.string.cancel, null)
-						.create();
+			if(mWizardModel.findByKey("Sandwich:Meats").getData().get(Page.SIMPLE_DATA_KEY)!=null){
+				meats = mWizardModel.findByKey("Sandwich:Meats").getData().get(Page.SIMPLE_DATA_KEY).toString();
 			}
-		};
-		dialog.show(getChildFragmentManager(), "place_order_dialog");
+			if(mWizardModel.findByKey("Sandwich:Veggies").getData().get(Page.SIMPLE_DATA_KEY)!=null){
+				veggies = mWizardModel.findByKey("Sandwich:Veggies").getData().get(Page.SIMPLE_DATA_KEY).toString();				
+			}
+			if(mWizardModel.findByKey("Sandwich:Cheeses").getData().get(Page.SIMPLE_DATA_KEY).toString()!=null){
+				cheeses = mWizardModel.findByKey("Sandwich:Cheeses").getData().get(Page.SIMPLE_DATA_KEY).toString();				
+			}
+
+			Toast.makeText(getActivity(), "Ordering Your "+type+ "\n" + bread + ", " + meats + ", " + veggies + ", " + cheeses + ", " + toasted, Toast.LENGTH_LONG).show();
+		}
+		
+		else if(type.equals("Salad")){
+			String salad = mWizardModel.findByKey("Salad:Salad type").getData().getString(Page.SIMPLE_DATA_KEY);
+			String dressing = mWizardModel.findByKey("Salad:Dressing").getData().getString(Page.SIMPLE_DATA_KEY);
+			Toast.makeText(getActivity(), "Ordering Your "+type+ "\n" + salad + ", " + dressing, Toast.LENGTH_LONG).show();
+		}
 	}
 }
