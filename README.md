@@ -1,3 +1,7 @@
+Update - I have modified SingleChoicePage's setChoices() method so that it will notify the backing ArrayAdapter to update its data/Views whenever the user changed selection. 
+The use case is when there are consecutive SingleChoicePage's and the display of one page depends on previous page's data.
+If you are interested in getting a copy of this, let me know and I will check in my updates to this project.
+
 Android WizardPager
 ===================
 
